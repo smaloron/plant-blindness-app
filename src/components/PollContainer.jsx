@@ -75,11 +75,11 @@ function PollContainer() {
                         </button>
                     )}
                     {step < questions.length - 1 ? (
-                        <button className="btn primary" onClick={handleNext} disabled={value === "" || value == null}>
+                        <button className="btn primary" onClick={handleNext}>
                             Suivant
                         </button>
                     ) : (
-                        <button className="btn primary" onClick={handleSubmit} disabled={value === "" || value == null}>
+                        <button className="btn primary" onClick={handleSubmit}>
                             Valider
                         </button>
                     )}
