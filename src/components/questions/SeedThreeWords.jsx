@@ -14,14 +14,13 @@ const SeedThreeWords = ({ seeds, value = { seedId: null, words: ["", "", ""] }, 
         <div>
             <div className="mb-4">
                 <p className="mb-2">Sélectionnez une graine :</p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div className="seed-gallery">
                     {seeds.map(seed => (
                         <button
                             key={seed.id}
                             type="button"
-                            className={`border rounded-2xl p-2 flex flex-col items-center shadow
-                transition bg-white hover:bg-green-50
-                ${value.seedId === seed.id ? "ring-2 ring-green-500" : ""}`}
+                            className={`seed-gallery__item 
+                            ${value.seedId === seed.id ? "seed-gallery__item--selected" : ""}`}
                             onClick={() => handleSeedSelect(seed.id)}
                         >
                             <img src={seed.img} alt={seed.name} className="h-20 w-auto mb-2 rounded-xl object-cover" />
@@ -31,7 +30,7 @@ const SeedThreeWords = ({ seeds, value = { seedId: null, words: ["", "", ""] }, 
                 </div>
             </div>
             {value.seedId &&
-                <div className="flex gap-2">
+                <div className="flex gap-2 mt-2">
                     {[0,1,2].map(i => (
                         <input
                             key={i}

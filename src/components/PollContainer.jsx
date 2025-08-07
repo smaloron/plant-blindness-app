@@ -30,58 +30,62 @@ const questionTypes = {
     "consent": Consent,
 };
 
-const PollContainer = () => {
+function PollContainer() {
     const questions = PollConfig();
     const [step, setStep] = useState(0);
+
+    // answers: { [questionName]: value }
     const [answers, setAnswers] = useState({});
-
-    const handleChange = (val) => {
-        setAnswers(prev => ({ ...prev, [name]: val }));
-        //setAnswers({ ...answers, [step]: val });
-    };
-
-    const handleNext = () => setStep(step + 1);
-    const handlePrev = () => setStep(step - 1);
-
-    const handleSubmit = async () => {
-        await savePoll(answers);
-        // TODO: show thank you or redirect
-    };
 
     const q = questions[step];
     const QuestionComponent = questionTypes[q.type];
 
+    // La valeur spécifique à cette question
+    const value = answers[q.name] ?? (q.type === "three-words" ? ["", "", ""] : "");
+
+    // Quand la réponse change, on l'enregistre sous la clé unique
+    const handleChange = (val) => {
+        setAnswers(prev => ({
+            ...prev,
+            [q.name]: val
+        }));
+    };
+
+    const handleNext = () => setStep(s => Math.min(s + 1, questions.length - 1));
+    const handlePrev = () => setStep(s => Math.max(s - 1, 0));
+
+    const handleSubmit = () => {
+        // Ici tu envoies 'answers' à Firebase
+        alert("Réponses :\n" + JSON.stringify(answers, null, 2));
+    };
+
     return (
-        <div>
-            <h2 className="question-title">{q.question}</h2>
-            <QuestionComponent
-                {...q}
-                value={answers[q.name] || ""}
-                onChange={val => handleChange(q.name, val)}
-                //value={answers[step]}
-                //onChange={handleChange}
-            />
-            <div className="button-row">
-                {step > 0 &&
-                    <button
-                        className="btn primary"
-                        onClick={handlePrev}
-                    >Précédent</button>
-                }
-                {step < questions.length - 1 ?
-                    <button
-                        className="btn"
-                        onClick={handleNext}
-                        disabled={typeof answers[step] === "undefined" || answers[step] === ""}
-                    >Suivant</button>
-                    :
-                    <button
-                        className="btn"
-                        onClick={handleSubmit}
-                    >Valider</button>
-                }
+        <main className="main-container">
+            <div className="content-box">
+                <div className="question-title">{q.question}</div>
+                <QuestionComponent
+                    {...q}
+                    value={value}
+                    onChange={handleChange}
+                />
+                <div className="button-row">
+                    {step > 0 && (
+                        <button className="btn" onClick={handlePrev}>
+                            Précédent
+                        </button>
+                    )}
+                    {step < questions.length - 1 ? (
+                        <button className="btn primary" onClick={handleNext} disabled={value === "" || value == null}>
+                            Suivant
+                        </button>
+                    ) : (
+                        <button className="btn primary" onClick={handleSubmit} disabled={value === "" || value == null}>
+                            Valider
+                        </button>
+                    )}
+                </div>
             </div>
-        </div>
+        </main>
     );
-};
+}
 export default PollContainer;
