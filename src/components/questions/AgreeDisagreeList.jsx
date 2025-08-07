@@ -12,7 +12,7 @@ const AgreeDisagreeList = ({statements, value = {}, onChange}) => {
                 <div key={st}>
                     <p className="likert-group-label">{st}</p>
                     <div className="likert-group">
-                        <label className={`likert-label ${value[st] ? "selected" : ""}`}>
+                        <label className={`likert-label ${value[st] === true ? "selected" : ""}`}>
                             <input
                                 type="radio"
                                 name={st}
@@ -21,7 +21,7 @@ const AgreeDisagreeList = ({statements, value = {}, onChange}) => {
                             />
                             <span className="ml-1">D’accord</span>
                         </label>
-                        <label className={`likert-label ${value[st] ? "" : "selected"}`}>
+                        <label className={`likert-label ${value[st] === false ? "" : "selected"}`}>
                             <input
                                 type="radio"
                                 name={st}
