@@ -3,11 +3,11 @@ import React from "react";
 // Single-choice question with a list of options (radio buttons)
 const RadioList = ({ options, value, onChange }) => (
     <div className="radio-list">
-        {options.map((opt, i) => (
+        {options.map((opt) => (
             <label
                 key={opt}
                 className={`likert-label
-          ${value === opt ? "bg-green-600 text-white" : "bg-white text-green-800"}
+          ${value === opt ? "selected" : ""}
         `}
             >
                 <input
