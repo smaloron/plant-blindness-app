@@ -41,12 +41,14 @@ const Demographics = ({ value = {}, onChange }) => {
                 ])}
             </div>
             <div>
+                {/* eslint-disable-next-line no-irregular-whitespace */}
                 <div className="likert-group-label">Combien de plantes avez-vous chez vous ? (intérieur)</div>
                 {renderRadioGroup("plantsIndoor", [
                     "aucune", "1 à 5", "Plus de 5"
                 ])}
             </div>
             <div>
+                {/* eslint-disable-next-line no-irregular-whitespace */}
                 <div className="likert-group-label">Combien de plantes avez-vous ? (extérieur)</div>
                 {renderRadioGroup("plantsOutdoor", [
                     "je n'ai ni balcon ni jardin", "aucune", "1 à 5", "Plus de 5"
