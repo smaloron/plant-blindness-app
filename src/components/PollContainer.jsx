@@ -57,6 +57,7 @@ function PollContainer() {
     const handleSubmit = () => {
         // Ici tu envoies 'answers' à Firebase
         alert("Réponses :\n" + JSON.stringify(answers, null, 2));
+        //savePoll(answers)
     };
 
     return (
