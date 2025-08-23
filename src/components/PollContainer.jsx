@@ -55,7 +55,6 @@ function PollContainer() {
     const handlePrev = () => setStep(s => Math.max(s - 1, 0));
 
     const handleSubmit = () => {
-        // Ici tu envoies 'answers' à Firebase
         alert("Réponses :\n" + JSON.stringify(answers, null, 2));
         //savePoll(answers)
     };
@@ -63,7 +62,10 @@ function PollContainer() {
     return (
         <main className="main-container">
             <div className="content-box">
-                <div className="question-title">{q.question}</div>
+                <h1 className="question-number">{step +1} sur {questions.length}</h1>
+                <div className="question-title">
+                    {q.question}
+                </div>
                 <QuestionComponent
                     {...q}
                     value={value}

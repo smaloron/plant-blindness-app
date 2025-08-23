@@ -6,8 +6,8 @@ const SingleSeedChoice = ({ seeds, value, onChange }) => (
         {seeds.map(seed => (
             <button
                 key={seed.id}
-                className={`seed-gallery__item
-          ${value === seed.id ? "seed-gallery__item--selected" : ""}`}
+                className={`seed-item
+          ${value === seed.id ? "selected" : ""}`}
                 onClick={() => onChange(seed.id)}
                 type="button"
             >

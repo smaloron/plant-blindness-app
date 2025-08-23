@@ -19,8 +19,8 @@ const SeedThreeWords = ({ seeds, value = { seedId: null, words: ["", "", ""] }, 
                         <button
                             key={seed.id}
                             type="button"
-                            className={`seed-gallery__item 
-                            ${value.seedId === seed.id ? "seed-gallery__item--selected" : ""}`}
+                            className={`seed-item 
+                            ${value.seedId === seed.id ? "selected" : ""}`}
                             onClick={() => handleSeedSelect(seed.id)}
                         >
                             <img src={seed.img} alt={seed.name} className="h-20 w-auto mb-2 rounded-xl object-cover" />
