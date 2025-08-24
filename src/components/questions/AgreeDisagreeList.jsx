@@ -21,7 +21,7 @@ const AgreeDisagreeList = ({statements, value = {}, onChange}) => {
                             />
                             <span className="ml-1">D’accord</span>
                         </label>
-                        <label className={`likert-label ${value[st] === false ? "" : "selected"}`}>
+                        <label className={`likert-label ${value[st] === false ? "selected" : ""}`}>
                             <input
                                 type="radio"
                                 name={st}
