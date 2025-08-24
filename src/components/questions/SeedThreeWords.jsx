@@ -1,8 +1,10 @@
 import React from "react";
 
 const SeedThreeWords = ({ seeds, value = { seedId: null, words: ["", "", ""] }, onChange }) => {
-    const handleSeedSelect = (seedId) => {
-        onChange({ ...value, seedId });
+    const handleSeedSelect = (seed) => {
+        console.log(seed);
+        onChange({ ...value, seed });
+        console.log(value);
     };
     const handleWordChange = (i, word) => {
         const newWords = [...(value.words || ["", "", ""])];
@@ -19,16 +21,16 @@ const SeedThreeWords = ({ seeds, value = { seedId: null, words: ["", "", ""] }, 
                         <button
                             key={seed.id}
                             type="button"
-                            className={`seed-item ${value?.id === seed.id ? "selected" : ""}`}
-                            onClick={() => onChange({id: seed.id, name: seed.name})}
+                            className={`seed-item ${value?.seed.id === seed.id ? "selected" : ""}`}
+                            onClick={() => handleSeedSelect({id: seed.id, name: seed.name})}
                         >
-                            <img src={seed.img} alt={seed.name} className="h-20 w-auto mb-2 rounded-xl object-cover" />
-                            <span className="text-green-700 font-semibold">{seed.name}</span>
+                            <img src={seed.img} alt={seed.name}/>
+                            <span >{seed.name}</span>
                         </button>
                     ))}
                 </div>
             </div>
-            {value.seedId &&
+            {value.seed?.id &&
                 <div className="flex gap-2 mt-2">
                     {[0,1,2].map(i => (
                         <input

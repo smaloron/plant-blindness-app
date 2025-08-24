@@ -23,9 +23,9 @@ const seedsList = [
 const recognizedSeedList = [
     { id: 101, name: "Arachide", img: baseUrl + "/images/3/arachide.jpg" },
     { id: 102, name: "Café", img: baseUrl + "/images/3/Cafe.jpg" },
-    { id: 103, name: "Dans le Zome", img: baseUrl + "/images/3/dans-le-zome3.jpg" },
+    { id: 103, name: "Lierre", img: baseUrl + "/images/3/dans-le-zome3.jpg" },
     { id: 104, name: "Églantine", img: baseUrl + "/images/3/Eglantine.jpg" },
-    { id: 105, name: "Haricot d'eau", img: baseUrl + "/images/3/haricot.jpg" },
+    { id: 105, name: "Haricot", img: baseUrl + "/images/3/haricot.jpg" },
     { id: 106, name: "Samares d'érable", img: baseUrl + "/images/3/samares_erables.jpg" },
 ];
 

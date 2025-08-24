@@ -1,9 +1,8 @@
-// MultiSeedChoice.jsx
 import React from "react";
 
-// value: liste de {id, name} – peut arriver vide ou mal typée
+// value: {id, name} list – can be empty
 const MultiSeedChoice = ({ seeds, value, onChange }) => {
-    // Sécurise la valeur reçue
+    // Secure the input
     const list = Array.isArray(value) ? value : [];
 
     // Ajoute/retire un élément {id, name}
