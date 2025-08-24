@@ -21,17 +21,6 @@ const MultiSeedChoice = ({ seeds, value, onChange }) => {
             {seeds.map((seed) => {
                 const selected = list.some((s) => s.id === seed.id);
                 return (
-                    /*
-                    <div
-                        key={seed.id}
-                        className={`seed-item ${selected ? "selected" : ""}`}
-                        onClick={() => toggleSeed(seed)}
-                    >
-                        <img src={seed.img} alt={seed.name} />
-                        <span className="seed-label">{seed.name}</span>
-                    </div>
-
-                     */
                     <button
                         key={seed.id}
                         className={`seed-item ${selected ? "selected" : ""}`}
