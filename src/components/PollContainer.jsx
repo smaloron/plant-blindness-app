@@ -30,6 +30,20 @@ const questionTypes = {
     "consent": Consent,
 };
 
+const getDefaultValue = (q) => {
+    switch (q.type) {
+        case "three-words":
+            return ["", "", ""];
+        case "multi-seed":
+            return [];
+        case "single-seed":
+        case "fake-seed":
+            return null;
+        default:
+            return "";
+    }
+};
+
 function PollContainer() {
     const questions = PollConfig();
     const [step, setStep] = useState(0);
@@ -40,8 +54,7 @@ function PollContainer() {
     const q = questions[step];
     const QuestionComponent = questionTypes[q.type];
 
-    // La valeur spécifique à cette question
-    const value = answers[q.name] ?? (q.type === "three-words" ? ["", "", ""] : "");
+    const value = answers[q.name] ?? getDefaultValue(q);
 
     // Quand la réponse change, on l'enregistre sous la clé unique
     const handleChange = (val) => {

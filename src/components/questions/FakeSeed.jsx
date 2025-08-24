@@ -6,9 +6,8 @@ const FakeSeed = ({ seeds, value, onChange }) => (
         {seeds.map(seed => (
             <button
                 key={seed.id}
-                className={`seed-item
-          ${value === seed.id ? "selected" : ""}`}
-                onClick={() => onChange(seed.id)}
+                className={`seed-item ${value?.id === seed.id ? "selected" : ""}`}
+                onClick={() => onChange({id: seed.id, name: seed.name})}
                 type="button"
             >
                 <img src={seed.img} alt={seed.name} className="" />
