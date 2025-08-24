@@ -11,7 +11,7 @@ const SingleSeedChoice = ({ seeds, value, onChange }) => (
                 onClick={() => onChange(seed.id)}
                 type="button"
             >
-                <img src={seed.img} alt={seed.name} className="h-24 w-auto mb-2 rounded-xl object-cover" />
+                <img src={seed.img} alt={seed.name} />
                 <span className="text-green-700 font-semibold">{seed.name}</span>
             </button>
         ))}
