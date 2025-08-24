@@ -30,6 +30,9 @@ const questionTypes = {
     "consent": Consent,
 };
 
+const initLikert = (items = []) =>
+    items.map(q => ({ question: q, answer: undefined }));
+
 const getDefaultValue = (q) => {
     switch (q.type) {
         case "three-words":
@@ -39,6 +42,8 @@ const getDefaultValue = (q) => {
         case "single-seed":
         case "fake-seed":
             return null;
+        case "likert-group":
+            return initLikert(q.items);
         default:
             return "";
     }
@@ -48,7 +53,7 @@ function PollContainer() {
     const questions = PollConfig();
     const [step, setStep] = useState(0);
 
-    // answers: { [questionName]: value }
+
     const [answers, setAnswers] = useState({});
 
     const q = questions[step];
@@ -56,7 +61,7 @@ function PollContainer() {
 
     const value = answers[q.name] ?? getDefaultValue(q);
 
-    // Quand la réponse change, on l'enregistre sous la clé unique
+
     const handleChange = (val) => {
         setAnswers(prev => ({
             ...prev,
