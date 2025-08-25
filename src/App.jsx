@@ -1,5 +1,6 @@
 import './App.css'
 import PollContainer from "./components/PollContainer.jsx";
+import Home from "./components/Home.jsx";
 
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
             </header>
             <main className="main-container">
                 <div className="content-box">
-                    <PollContainer className="main-container"/>
+                    <Home/>
                 </div>
             </main>
         </div>
