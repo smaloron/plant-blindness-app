@@ -46,7 +46,7 @@ const SeedThreeWords = ({
                         src={seed.img}
                         alt={seed.name || "Graine"}
                         className="seed-img-large"
-                        style={{ width: 340, height: 340 }}
+                        style={{ width: 340 }}
                     />
                 </div>
             )}
