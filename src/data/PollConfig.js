@@ -52,6 +52,16 @@ const fakeSeedsList = [
 
 const PollConfig = () => [
     {
+        type: "likert-group",
+        question: "Avez-vous vu dans l'exposition quelque chose de frappant ?",
+        items: [
+            "Des formes de graines surprenantes",
+            "La beauté de certaines graines",
+            "Les différences individuelles de deux graines d'une même espèce"
+        ],
+        name: "likert-group",
+    },
+    {
         type: "fake-seed",
         question: "D'après vous, quelle est la graine qui n'existe pas parmi celles-ci ?",
         seeds: fakeSeedsList,
@@ -113,7 +123,7 @@ const PollConfig = () => [
     },
     {
         type: "likert-group",
-        question: "Avez-vous vu dans l'exposition quelque chose que vous n'aviez pas vu jusqu'à présent ?",
+        question: "Avez-vous vu dans l'exposition quelque chose de frappant ?",
         items: [
             "Des formes de graines surprenantes",
             "La beauté de certaines graines",

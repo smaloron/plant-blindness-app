@@ -1,17 +1,18 @@
 import React from "react";
 
+/* Étiquettes de l'échelle */
 const scaleLabels = [
-    "Oui, tout à fait",
-    "Oui, un peu",
-    "Non, pas vraiment",
     "Non, pas du tout",
-    "Je connaissais déjà",
+    "Non, pas vraiment",
+    "Oui, un peu",
+    "Oui, tout à fait",
 ];
 
+/* Groupe Likert : options radio horizontales */
 const LikertGroup = ({ items, value = [], onChange }) => {
-    // Select a label for the question i
+    // met à jour la réponse à la question qIdx
     const handleChange = (qIdx, label) => {
-        // Normalize into an array of objects {question, answer}
+        // normalise vers { question, answer }
         const next = items.map((q, i) => {
             const v = value[i];
             const ans = v?.answer ?? (typeof v === "string" ? v : undefined);
@@ -27,10 +28,13 @@ const LikertGroup = ({ items, value = [], onChange }) => {
                 const current =
                     value[i]?.answer ??
                     (typeof value[i] === "string" ? value[i] : undefined);
+
                 return (
                     <div key={i}>
                         <p className="likert-group-label">{item}</p>
-                        <div className="likert-group">
+
+                        {/* ajout de la classe horizontal */}
+                        <div className="likert-group horizontal">
                             {scaleLabels.map((label) => (
                                 <label
                                     key={label}
@@ -44,7 +48,6 @@ const LikertGroup = ({ items, value = [], onChange }) => {
                                         value={label}
                                         checked={current === label}
                                         onChange={() => handleChange(i, label)}
-                                        className="sr-only"
                                     />
                                     {label}
                                 </label>
