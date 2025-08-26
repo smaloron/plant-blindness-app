@@ -71,14 +71,6 @@ const PollConfig = () => [
         type: "three-words",
         question: "Quand on vous dit le mot graine, vous pensez spontanément à quoi ? (trois mots)",
         name: "three-spontaneous-words",
-        seedId: 201
-    },
-
-    {
-        type: "seed-three-words",
-        question: "Quand vous voyez cette graine, quels sont les trois premiers mots qui vous viennent à l'esprit ?",
-        seeds: threeWordsAboutASeedList,
-        name: "three-words-about-a-seed",
     },
 
     {
@@ -203,7 +195,7 @@ const PollConfig = () => [
         type: "consent",
         question: "Nous autorisez-vous à garder ces données anonymes pour une recherche sur les relations aux plantes ?",
         name: "consent",
-    }
+    },
 ];
 
 

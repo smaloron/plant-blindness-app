@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PollConfig from "../data/PollConfig.js";
 import SingleSeedChoice from "./questions/SingleSeedChoice";
 import TextAnswer from "./questions/TextAnswer";
@@ -12,9 +12,9 @@ import RadioGroup from "./questions/RadioGroup";
 import Demographics from "./questions/Demographics";
 import CheckboxList from "./questions/CheckboxList.jsx";
 import Consent from "./questions/Consent.jsx";
+import Thanks from "./questions/Thanks.jsx";
 
 import { savePoll } from "../firebase/useFirestore";
-
 
 // Main component
 const questionTypes = {
@@ -29,7 +29,7 @@ const questionTypes = {
     "radio-list": RadioGroup,
     "checkbox-list": CheckboxList,
     "demographics": Demographics,
-    "consent": Consent,
+    "consent": Consent
 };
 
 const initLikert = (items = []) =>
@@ -53,65 +53,93 @@ const getDefaultValue = (q) => {
     }
 };
 
-function PollContainer() {
+export default function PollContainer({ onStepChange }) {
+    // questions et états globaux
     const questions = PollConfig();
     const [step, setStep] = useState(0);
-
-
     const [answers, setAnswers] = useState({});
+    const [isFinished, setIsFinished] = useState(false);
 
-    const q = questions[step];
-    const QuestionComponent = questionTypes[q.type];
+    // évite le déclenchement au 1er rendu
+    const didMountRef = useRef(false);
 
-    const value = answers[q.name] ?? getDefaultValue(q);
+    // notifie le parent à chaque changement de question
+    useEffect(() => {
+        if (!didMountRef.current) {
+            didMountRef.current = true;
+            return;
+        }
+        if (!isFinished) onStepChange?.();
+    }, [step, isFinished, onStepChange]);
 
+    // si fini, on ne calcule plus q/QuestionComponent
+    const q = isFinished ? null : questions[step];
+    const QuestionComponent = isFinished
+        ? null
+        : questionTypes[q.type];
 
+    const value = isFinished
+        ? undefined
+        : answers[q.name] ?? getDefaultValue(q);
+
+    // maj d'une réponse
     const handleChange = (val) => {
-        setAnswers(prev => ({
-            ...prev,
-            [q.name]: val
-        }));
+        if (isFinished) return;
+        setAnswers((prev) => ({ ...prev, [q.name]: val }));
     };
 
-    const handleNext = () => setStep(s => Math.min(s + 1, questions.length - 1));
-    const handlePrev = () => setStep(s => Math.max(s - 1, 0));
+    // navigation
+    const handleNext = () =>
+        setStep((s) => Math.min(s + 1, questions.length - 1));
+    const handlePrev = () => setStep((s) => Math.max(s - 1, 0));
 
+    // validation finale → écran Thanks (pas de numérotation)
     const handleSubmit = () => {
-        alert("Réponses :\n" + JSON.stringify(answers, null, 2));
-        //savePoll(answers)
+        setIsFinished(true);
+        onStepChange?.(); // optionnel: change aussi le fond ici
+        // TODO: envoi/stockage des answers si nécessaire
     };
 
     return (
         <main className="main-container">
             <div className="content-box">
-                <h1 className="question-number">{step +1} sur {questions.length}</h1>
-                <div className="question-title">
-                    {q.question}
-                </div>
-                <QuestionComponent
-                    key={step}
-                    {...q}
-                    value={value}
-                    onChange={handleChange}
-                />
-                <div className="button-row">
-                    {step > 0 && (
-                        <button className="btn" onClick={handlePrev}>
-                            Précédent
-                        </button>
-                    )}
-                    {step < questions.length - 1 ? (
-                        <button className="btn primary" onClick={handleNext}>
-                            Suivant
-                        </button>
-                    ) : (
-                        <button className="btn primary" onClick={handleSubmit}>
-                            Valider
-                        </button>
-                    )}
-                </div>
+                {isFinished ? (
+                    // écran final sans numérotation
+                    <Thanks />
+                ) : (
+                    <>
+                        <h1 className="question-number">
+                            {step + 1} sur {questions.length}
+                        </h1>
+
+                        <div className="question-title">{q.question}</div>
+
+                        <QuestionComponent
+                            key={step}
+                            {...q}
+                            value={value}
+                            onChange={handleChange}
+                        />
+
+                        <div className="button-row">
+                            {step > 0 && (
+                                <button className="btn" onClick={handlePrev}>
+                                    Précédent
+                                </button>
+                            )}
+                            {step < questions.length - 1 ? (
+                                <button className="btn primary" onClick={handleNext}>
+                                    Suivant
+                                </button>
+                            ) : (
+                                <button className="btn primary" onClick={handleSubmit}>
+                                    Valider
+                                </button>
+                            )}
+                        </div>
+                    </>
+                )}
             </div>
         </main>
     );
 }
-export default PollContainer;
