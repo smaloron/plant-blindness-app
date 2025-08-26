@@ -52,6 +52,20 @@ const fakeSeedsList = [
 
 const PollConfig = () => [
     {
+        type: "checkbox-list",
+        question: "Qu'est-ce que l'exposition vous a apporté ?",
+        options: [
+            "Rien",
+            "Mieux comprendre la valeur des graines",
+            "Découvrir des graines inconnues",
+            "Apprécier la beauté et la singularité des graines",
+            "Prendre le temps de mieux regarder les graines",
+            "Une émotion esthétique",
+            "Autre chose"
+        ],
+        name: "benefits-of-the-exhibition",
+    },
+    {
         type: "likert-group",
         question: "Avez-vous vu dans l'exposition quelque chose de frappant ?",
         items: [

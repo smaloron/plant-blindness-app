@@ -10,6 +10,7 @@ import LikertGroup from "./questions/LikertGroup";
 import FakeSeed from "./questions/FakeSeed";
 import RadioGroup from "./questions/RadioGroup";
 import Demographics from "./questions/Demographics";
+import CheckboxList from "./questions/CheckboxList.jsx";
 import Consent from "./questions/Consent.jsx";
 
 import { savePoll } from "../firebase/useFirestore";
@@ -26,6 +27,7 @@ const questionTypes = {
     "likert-group": LikertGroup,
     "fake-seed": FakeSeed,
     "radio-list": RadioGroup,
+    "checkbox-list": CheckboxList,
     "demographics": Demographics,
     "consent": Consent,
 };
@@ -38,6 +40,8 @@ const getDefaultValue = (q) => {
         case "three-words":
             return ["", "", ""];
         case "multi-seed":
+            return [];
+        case "checkbox-list":
             return [];
         case "single-seed":
         case "fake-seed":

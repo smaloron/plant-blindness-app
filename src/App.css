@@ -225,6 +225,11 @@ header {
   border-color: var(--green-main);
 }
 
+label input[type="checkbox"] {
+  margin-right: 0.8rem;
+  accent-color: var(--green-main);
+}
+
 label input[type="radio"] {
   margin-right: 0.6em; /* espace horizontal entre bouton et texte */
   accent-color: var(--green-main); /* bonus : couleur verte */
