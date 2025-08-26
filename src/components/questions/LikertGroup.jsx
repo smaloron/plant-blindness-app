@@ -9,7 +9,7 @@ const scaleLabels = [
 ];
 
 /* Groupe Likert : options radio horizontales */
-const LikertGroup = ({ items, value = [], onChange }) => {
+const LikertGroup = ({ items, value = [],scaleLabels = [], onChange }) => {
     // met à jour la réponse à la question qIdx
     const handleChange = (qIdx, label) => {
         // normalise vers { question, answer }
