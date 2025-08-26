@@ -9,7 +9,7 @@ const Consent = ({ value, onChange }) => (
                 checked={value === true}
                 onChange={() => onChange(true)}
             />
-            Oui, je donne mon accord pour que mes réponses soient gardées...
+            Oui, je donne mon accord pour que mes réponses soient gardées
         </label>
         <label className={`likert-label
       ${value === false ? "selected" : ""}`}>
@@ -18,7 +18,7 @@ const Consent = ({ value, onChange }) => (
                 checked={value === false}
                 onChange={() => onChange(false)}
             />
-            Non, je ne donne pas mon accord...
+            Non, je ne donne pas mon accord
         </label>
     </div>
 );
