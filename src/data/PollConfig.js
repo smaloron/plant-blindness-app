@@ -52,6 +52,12 @@ const fakeSeedsList = [
 
 const PollConfig = () => [
     {
+        type: "fake-seed",
+        question: "D'après vous, quelle est la graine qui n'existe pas parmi celles-ci ?",
+        seeds: fakeSeedsList,
+        name: "fake-seed-guess",
+    },
+    {
         type: "seed-three-words",
         question: "Quand vous voyez cette graine, quels sont les trois premiers mots qui vous viennent à l'esprit ?",
         seeds: threeWordsAboutASeedList,

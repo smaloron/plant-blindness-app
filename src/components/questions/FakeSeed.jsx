@@ -11,7 +11,6 @@ const FakeSeed = ({ seeds, value, onChange }) => (
                 type="button"
             >
                 <img src={seed.img} alt={seed.name} className="" />
-                <span className="">{seed.name}</span>
             </button>
         ))}
     </div>
