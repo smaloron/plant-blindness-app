@@ -89,6 +89,7 @@ function PollContainer() {
                     {q.question}
                 </div>
                 <QuestionComponent
+                    key={step}
                     {...q}
                     value={value}
                     onChange={handleChange}

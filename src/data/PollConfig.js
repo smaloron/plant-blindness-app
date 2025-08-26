@@ -49,68 +49,6 @@ const fakeSeedsList = [
 ];
 
 // Main configuration array
-
-const PollConfig = () => [
-    {
-        type: "likert-group",
-        question: "",
-        items: [
-            "J'ai aimé cette exposition avec les graines",
-        ],
-        scaleLabels: [
-            "pas du tout",
-            "pas trop",
-            "un peu",
-            "beaucoup"
-        ],
-        name: "likert-exhibition",
-    },
-    {
-        type: "checkbox-list",
-        question: "Qu'est-ce que l'exposition vous a apporté ?",
-        options: [
-            "Rien",
-            "Mieux comprendre la valeur des graines",
-            "Découvrir des graines inconnues",
-            "Apprécier la beauté et la singularité des graines",
-            "Prendre le temps de mieux regarder les graines",
-            "Une émotion esthétique",
-            "Autre chose"
-        ],
-        name: "benefits-of-the-exhibition",
-    },
-    {
-        type: "likert-group",
-        question: "Avez-vous vu dans l'exposition quelque chose de frappant ?",
-        items: [
-            "Des formes de graines surprenantes",
-            "La beauté de certaines graines",
-            "Les différences individuelles de deux graines d'une même espèce"
-        ],
-        scaleLabels: [
-            "Non, pas du tout",
-            "Non, pas vraiment",
-            "Oui, un peu",
-            "Oui, tout à fait",
-        ],
-        name: "likert-group",
-    },
-    {
-        type: "fake-seed",
-        question: "D'après vous, quelle est la graine qui n'existe pas parmi celles-ci ?",
-        seeds: fakeSeedsList,
-        name: "fake-seed-guess",
-    },
-    {
-        type: "seed-three-words",
-        question: "Quand vous voyez cette graine, quels sont les trois premiers mots qui vous viennent à l'esprit ?",
-        seeds: threeWordsAboutASeedList,
-        name: "three-words-about-a-seed",
-        seedId: 202
-    },
-]
-
-/*
 const PollConfig = () => [
     {
         type: "single-seed",
@@ -142,11 +80,41 @@ const PollConfig = () => [
         seeds: threeWordsAboutASeedList,
         name: "three-words-about-a-seed",
     },
+
     {
         type: "seed-three-words",
-        question: "Idem avec celle-là",
+        question: "Quand vous voyez cette graine, quels sont les trois premiers mots qui vous viennent à l'esprit ?",
         seeds: threeWordsAboutASeedList,
-        name: "three-words-about-a-second-seed",
+        name: "three-words-about-a-seed-1",
+        seedId: 204,
+        value :{ id: null, name: null, words: ["", "", ""] }
+    },
+
+    {
+        type: "seed-three-words",
+        question: "Quand vous voyez cette graine, quels sont les trois premiers mots qui vous viennent à l'esprit ?",
+        seeds: threeWordsAboutASeedList,
+        name: "three-words-about-a-seed-2",
+        seedId: 202,
+        value :{ id: null, name: null, words: ["", "", ""] }
+    },
+
+    {
+        type: "seed-three-words",
+        question: "Quand vous voyez cette graine, quels sont les trois premiers mots qui vous viennent à l'esprit ?",
+        seeds: threeWordsAboutASeedList,
+        name: "three-words-about-a-seed-3",
+        seedId: 203,
+        value :{ id: null, name: null, words: ["", "", ""] }
+    },
+
+    {
+        type: "seed-three-words",
+        question: "Quand vous voyez cette graine, quels sont les trois premiers mots qui vous viennent à l'esprit ?",
+        seeds: threeWordsAboutASeedList,
+        name: "three-words-about-a-seed-4",
+        seedId: 205,
+        value :{ id: null, name: null, words: ["", "", ""] }
     },
 
     {
@@ -163,10 +131,16 @@ const PollConfig = () => [
             "La beauté de certaines graines",
             "Les différences individuelles de deux graines d'une même espèce"
         ],
+        scaleLabels: [
+            "Non, pas du tout",
+            "Non, pas vraiment",
+            "Oui, un peu",
+            "Oui, tout à fait",
+        ],
         name: "likert-group",
     },
     {
-        type: "radio-list",
+        type: "checkbox-list",
         question: "Qu'est-ce que l'exposition vous a apporté ?",
         options: [
             "Rien",
@@ -174,6 +148,7 @@ const PollConfig = () => [
             "Découvrir des graines inconnues",
             "Apprécier la beauté et la singularité des graines",
             "Prendre le temps de mieux regarder les graines",
+            "Une émotion esthétique",
             "Autre chose"
         ],
         name: "benefits-of-the-exhibition",
@@ -192,6 +167,22 @@ const PollConfig = () => [
         showOther: true,
         name: "paradigm-shift",
     },
+
+    {
+        type: "likert-group",
+        question: "",
+        items: [
+            "J'ai aimé cette exposition avec les graines",
+        ],
+        scaleLabels: [
+            "pas du tout",
+            "pas trop",
+            "un peu",
+            "beaucoup"
+        ],
+        name: "likert-exhibition",
+    },
+
     // Subsidiary (important) questions
     {
         type: "demographics",
@@ -214,7 +205,6 @@ const PollConfig = () => [
         name: "consent",
     }
 ];
-*/
 
 
 export default PollConfig;
