@@ -155,6 +155,16 @@ header {
   text-align: center;
 }
 
+.seed-item-large {
+  margin: 0 auto 1rem;
+  max-width: 80%;
+  align-items: center;
+}
+
+.seed-img-large {
+  width: 100%;
+}
+
 .textarea, textarea, input[type="text"], select {
   width: 100%;
   padding: 0.7rem;
