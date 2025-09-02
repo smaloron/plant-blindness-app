@@ -16,7 +16,7 @@ import Thanks from "./questions/Thanks.jsx";
 
 import { savePoll } from "../firebase/useFirestore";
 
-// Main component
+// Main components
 const questionTypes = {
     "single-seed": SingleSeedChoice,
     "text": TextAnswer,
@@ -97,7 +97,8 @@ export default function PollContainer({ onStepChange }) {
     const handleSubmit = () => {
         setIsFinished(true);
         onStepChange?.(); // optionnel: change aussi le fond ici
-        // TODO: envoi/stockage des answers si nécessaire
+
+        //savePoll(answers);
     };
 
     return (
@@ -128,9 +129,14 @@ export default function PollContainer({ onStepChange }) {
                                 </button>
                             )}
                             {step < questions.length - 1 ? (
-                                <button className="btn primary" onClick={handleNext}>
-                                    Suivant
-                                </button>
+                                <>
+                                    <button className="btn primary" onClick={handleNext}>
+                                        Suivant
+                                    </button>
+                                    <button className="btn primary" onClick={handleNext}>
+                                        Passer cette question
+                                    </button>
+                                </>
                             ) : (
                                 <button className="btn primary" onClick={handleSubmit}>
                                     Valider

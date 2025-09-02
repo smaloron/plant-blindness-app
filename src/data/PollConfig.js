@@ -178,7 +178,7 @@ const PollConfig = () => [
     // Subsidiary (important) questions
     {
         type: "demographics",
-        question: "Questions subsidiaires",
+        question: "Parlez-nous de vous",
         name: "demographics",
     },
     {
