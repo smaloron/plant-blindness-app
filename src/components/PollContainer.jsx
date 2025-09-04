@@ -94,11 +94,12 @@ export default function PollContainer({ onStepChange }) {
     const handlePrev = () => setStep((s) => Math.max(s - 1, 0));
 
     // validation finale → écran Thanks (pas de numérotation)
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setIsFinished(true);
         onStepChange?.(); // optionnel: change aussi le fond ici
 
-        //savePoll(answers);
+        //const ref = await savePoll(answers);
+        //console.log(ref);
     };
 
     return (
@@ -133,15 +134,17 @@ export default function PollContainer({ onStepChange }) {
                                     <button className="btn primary" onClick={handleNext}>
                                         Suivant
                                     </button>
-                                    <button className="btn primary" onClick={handleNext}>
-                                        Passer cette question
-                                    </button>
                                 </>
                             ) : (
                                 <button className="btn primary" onClick={handleSubmit}>
                                     Valider
                                 </button>
                             )}
+                        </div>
+                        <div className="right">
+                            <button className="link" onClick={handleNext}>
+                                Passer cette question
+                            </button>
                         </div>
                     </>
                 )}
