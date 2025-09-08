@@ -53,12 +53,15 @@ const getDefaultValue = (q) => {
     }
 };
 
+
+
 export default function PollContainer({ onStepChange }) {
     // questions et états globaux
     const questions = PollConfig();
     const [step, setStep] = useState(0);
     const [answers, setAnswers] = useState({});
     const [isFinished, setIsFinished] = useState(false);
+    const [docId, setDocId] = useState(null);
 
     // évite le déclenchement au 1er rendu
     const didMountRef = useRef(false);
@@ -72,6 +75,14 @@ export default function PollContainer({ onStepChange }) {
         if (!isFinished) onStepChange?.();
     }, [step, isFinished, onStepChange]);
 
+    useEffect(() => {
+        const createDoc = async () => {
+            const ref = await savePoll({ createdAt: Date.now(), answers: {} });
+            setDocId(ref.id);
+        };
+        createDoc();
+    }, []);
+
     // si fini, on ne calcule plus q/QuestionComponent
     const q = isFinished ? null : questions[step];
     const QuestionComponent = isFinished
@@ -83,9 +94,14 @@ export default function PollContainer({ onStepChange }) {
         : answers[q.name] ?? getDefaultValue(q);
 
     // maj d'une réponse
-    const handleChange = (val) => {
+    const handleChange = async (val) => {
         if (isFinished) return;
-        setAnswers((prev) => ({ ...prev, [q.name]: val }));
+        const updatedAnswers = { ...answers, [q.name]: val };
+        setAnswers(updatedAnswers);
+
+        if (docId) {
+            await savePoll(updatedAnswers, docId);
+        }
     };
 
     // navigation
@@ -100,6 +116,27 @@ export default function PollContainer({ onStepChange }) {
 
         //const ref = await savePoll(answers);
         //console.log(ref);
+    };
+
+    const isAnswered = (value) => {
+        if (value === null || value === undefined) return false;
+        if (typeof value === "string") return value.trim() !== "";
+        if (Array.isArray(value)) {
+            if (value.length === 0) return false;
+
+            // Cas des trois mots ["", "", ""]
+            if (value.every(v => typeof v === "string")) {
+                return value.some(v => v.trim() !== "");
+            }
+
+            // Cas Likert [{question, answer: ...}]
+            if (value.every(v => typeof v === "object" && "answer" in v)) {
+                return value.some(v => v.answer !== undefined);
+            }
+
+            return true;
+        }
+        return true;
     };
 
     return (
@@ -124,27 +161,36 @@ export default function PollContainer({ onStepChange }) {
                         />
 
                         <div className="button-row">
-                            {step > 0 && (
-                                <button className="btn" onClick={handlePrev}>
-                                    Précédent
-                                </button>
-                            )}
-                            {step < questions.length - 1 ? (
-                                <>
-                                    <button className="btn primary" onClick={handleNext}>
+                                {step > 0 && (
+                                    <button className="btn" onClick={handlePrev}>
+                                        Précédent
+                                    </button>
+                                )}
+                                {step < questions.length - 1 ? (
+                                    <button
+                                        className="btn primary"
+                                        onClick={handleNext}
+                                        disabled={!isAnswered(value)}
+                                    >
                                         Suivant
                                     </button>
-                                </>
-                            ) : (
-                                <button className="btn primary" onClick={handleSubmit}>
-                                    Valider
+                                ) : (
+                                    <button
+                                        className="btn primary"
+                                        onClick={handleSubmit}
+                                        disabled={!isAnswered(value)}
+                                    >
+                                        Valider
+                                    </button>
+                                )}
+                            </div>
+
+                        <div className="right">
+                            {(step === 4 || step === 5 || step === 6 || step === 7) && (
+                                <button className="link" onClick={handleNext}>
+                                    Passer cette question
                                 </button>
                             )}
-                        </div>
-                        <div className="right">
-                            <button className="link" onClick={handleNext}>
-                                Passer cette question
-                            </button>
                         </div>
                     </>
                 )}
