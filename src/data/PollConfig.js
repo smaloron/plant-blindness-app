@@ -51,29 +51,34 @@ const fakeSeedsList = [
 // Main configuration array
 const PollConfig = () => [
     {
+        id: 1,
         type: "single-seed",
         question: "Quelle est votre graine préférée ?",
         seeds: seedsList,
         name: "favorite-seed"
     },
     {
+        id: 2,
         type: "text",
         question: "Pourquoi ?",
         name: "favorite-seed-reason"
     },
     {
+        id: 3,
         type: "multi-seed",
         question: "Avez-vous reconnu des graines que vous connaissiez ? Lesquelles ?",
         seeds: recognizedSeedList,
         name: "recognized-seeds",
     },
     {
+        id: 4,
         type: "three-words",
         question: "Quand on vous dit le mot graine, vous pensez spontanément à quoi ? (trois mots)",
         name: "three-spontaneous-words",
     },
 
     {
+        id: 5,
         type: "seed-three-words",
         question: "Quand vous voyez cette graine, quels sont les trois premiers mots qui vous viennent à l'esprit ?",
         seeds: threeWordsAboutASeedList,
@@ -83,6 +88,7 @@ const PollConfig = () => [
     },
 
     {
+        id: 6,
         type: "seed-three-words",
         question: "Quand vous voyez cette graine, quels sont les trois premiers mots qui vous viennent à l'esprit ?",
         seeds: threeWordsAboutASeedList,
@@ -92,6 +98,7 @@ const PollConfig = () => [
     },
 
     {
+        id: 7,
         type: "seed-three-words",
         question: "Quand vous voyez cette graine, quels sont les trois premiers mots qui vous viennent à l'esprit ?",
         seeds: threeWordsAboutASeedList,
@@ -101,6 +108,7 @@ const PollConfig = () => [
     },
 
     {
+        id: 8,
         type: "seed-three-words",
         question: "Quand vous voyez cette graine, quels sont les trois premiers mots qui vous viennent à l'esprit ?",
         seeds: threeWordsAboutASeedList,
@@ -110,12 +118,14 @@ const PollConfig = () => [
     },
 
     {
+        id: 9,
         type: "fake-seed",
         question: "D'après vous, quelle est la graine qui n'existe pas parmi celles-ci ?",
         seeds: fakeSeedsList,
         name: "fake-seed-guess",
     },
     {
+        id: 10,
         type: "likert-group",
         question: "Avez-vous vu dans l'exposition quelque chose de frappant ?",
         items: [
@@ -132,6 +142,7 @@ const PollConfig = () => [
         name: "likert-group",
     },
     {
+        id: 11,
         type: "checkbox-list",
         question: "Qu'est-ce que l'exposition vous a apporté ?",
         options: [
@@ -146,6 +157,7 @@ const PollConfig = () => [
         name: "benefits-of-the-exhibition",
     },
     {
+        id: 12,
         type: "agree-disagree-list",
         question: "Pensez-vous que l'exposition changera votre regard à l'avenir sur les graines et les plantes ?",
         statements: [
@@ -160,38 +172,27 @@ const PollConfig = () => [
         name: "paradigm-shift",
     },
 
-    {
-        type: "likert-group",
-        question: "",
-        items: [
-            "J'ai aimé cette exposition avec les graines",
-        ],
-        scaleLabels: [
-            "pas du tout",
-            "pas trop",
-            "un peu",
-            "beaucoup"
-        ],
-        name: "likert-exhibition",
-    },
-
     // Subsidiary (important) questions
     {
+        id: 13,
         type: "demographics",
         question: "Parlez-nous de vous",
         name: "demographics",
     },
     {
+        id: 14,
         type: "text",
         question: "Quelle est votre plante préférée ?",
         name: "favoritePlant"
     },
     {
+        id: 15,
         type: "text",
         question: "Pouvez-vous nous dire pourquoi ?",
         name: "favoritePlantReason"
     },
     {
+        id: 16,
         type: "consent",
         question: "Nous autorisez-vous à garder ces données anonymes pour une recherche sur les relations aux plantes ?",
         name: "consent",

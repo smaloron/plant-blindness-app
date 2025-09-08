@@ -116,6 +116,11 @@ header {
   background: #257022;
 }
 
+.btn:disabled {
+  background: var(--green-light);
+  color: var(--white);
+}
+
 .right {
   text-align: right;
 }

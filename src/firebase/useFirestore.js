@@ -1,15 +1,25 @@
-import { db } from "./firebaseConfig";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import {db} from "./firebaseConfig";
+import {collection, doc, addDoc, updateDoc, serverTimestamp} from "firebase/firestore";
 
 // Save poll answers to Firestore
-export async function savePoll(answers) {
+export async function savePoll(data, docId) {
 
-    const pollAnswers = answers.map((item, index)=> {
-        return { questionNumber: (index +1), "answer": item };
-    })
+    const col = collection(db, "polls");
 
-    await addDoc(collection(db, "pollAnswers"), {
-        pollAnswers,
-        createdAt: serverTimestamp()
-    });
+    try {
+        if (!docId) {
+            const ref = await addDoc(col, {
+                data,
+                createdAt: serverTimestamp()
+            });
+            return ref;
+        } else {
+            const ref = doc(db, "polls", docId);
+            await updateDoc(ref, {answers: data});
+            return ref;
+        }
+    } catch (err) {
+        console.log(err);
+    }
+
 }
