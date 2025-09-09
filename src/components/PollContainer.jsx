@@ -1,3 +1,4 @@
+// PollContainer.jsx
 import React, { useEffect, useRef, useState } from "react";
 import PollConfig from "../data/PollConfig.js";
 import SingleSeedChoice from "./questions/SingleSeedChoice";
@@ -16,7 +17,22 @@ import Thanks from "./questions/Thanks.jsx";
 
 import { savePoll } from "../firebase/useFirestore";
 
-// Main components
+// --- Modal simple (overlay plein écran) -----------------------------
+function ThanksModal({ open }) {
+    if (!open) return null;
+    return (
+        <div className="modal-overlay">
+            <div className="modal-content">
+                <Thanks />
+                <p className="modal-timer">
+                    Retour à l'accueil dans quelques secondes…
+                </p>
+            </div>
+        </div>
+    );
+}
+// --------------------------------------------------------------------
+
 const questionTypes = {
     "single-seed": SingleSeedChoice,
     "text": TextAnswer,
@@ -53,8 +69,6 @@ const getDefaultValue = (q) => {
     }
 };
 
-
-
 export default function PollContainer({ onStepChange }) {
     // questions et états globaux
     const questions = PollConfig();
@@ -62,6 +76,10 @@ export default function PollContainer({ onStepChange }) {
     const [answers, setAnswers] = useState({});
     const [isFinished, setIsFinished] = useState(false);
     const [docId, setDocId] = useState(null);
+
+    // état pour la modale + timer
+    const [showThanks, setShowThanks] = useState(false);
+    const timeoutRef = useRef(null);
 
     // évite le déclenchement au 1er rendu
     const didMountRef = useRef(false);
@@ -75,33 +93,36 @@ export default function PollContainer({ onStepChange }) {
         if (!isFinished) onStepChange?.();
     }, [step, isFinished, onStepChange]);
 
+    // créer un document vide au démarrage
     useEffect(() => {
         const createDoc = async () => {
-            const ref = await savePoll({ createdAt: Date.now(), answers: {} });
+            const ref = await savePoll({
+                createdAt: Date.now(),
+                answers: {}
+            });
             setDocId(ref.id);
         };
         createDoc();
+        // nettoyer un éventuel timer au démontage
+        return () => {
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        };
     }, []);
 
     // si fini, on ne calcule plus q/QuestionComponent
     const q = isFinished ? null : questions[step];
-    const QuestionComponent = isFinished
-        ? null
-        : questionTypes[q.type];
+    const QuestionComponent = isFinished ? null : questionTypes[q.type];
 
     const value = isFinished
         ? undefined
         : answers[q.name] ?? getDefaultValue(q);
 
-    // maj d'une réponse
+    // maj d'une réponse (auto-save à chaque saisie)
     const handleChange = async (val) => {
         if (isFinished) return;
-        const updatedAnswers = { ...answers, [q.name]: val };
-        setAnswers(updatedAnswers);
-
-        if (docId) {
-            await savePoll(updatedAnswers, docId);
-        }
+        const updated = { ...answers, [q.name]: val };
+        setAnswers(updated);
+        if (docId) await savePoll({ answers: updated }, docId);
     };
 
     // navigation
@@ -109,31 +130,38 @@ export default function PollContainer({ onStepChange }) {
         setStep((s) => Math.min(s + 1, questions.length - 1));
     const handlePrev = () => setStep((s) => Math.max(s - 1, 0));
 
-    // validation finale → écran Thanks (pas de numérotation)
+    // validation finale
     const handleSubmit = async () => {
-        setIsFinished(true);
-        onStepChange?.(); // optionnel: change aussi le fond ici
+        // 1) marquer le sondage comme complet AVANT la dernière écriture
+        if (docId) await savePoll({ complete: true }, docId);
 
-        //const ref = await savePoll(answers);
-        //console.log(ref);
+        // 2) enregistrer la dernière réponse (state déjà à jour)
+        if (docId) await savePoll({ answers }, docId);
+
+        // 3) afficher la modale, geler l'UI
+        setIsFinished(true);
+        setShowThanks(true);
+
+        // 4) attendre 30 s puis retour à l'accueil
+        timeoutRef.current = setTimeout(() => {
+            setShowThanks(false);
+            // reset possible si on veut rester SPA :
+            // window.location.reload();  // hard reset
+            window.location.assign("/"); // retour à la home
+        }, 10000);
     };
 
-    const isAnswered = (value) => {
-        if (value === null || value === undefined) return false;
-        if (typeof value === "string") return value.trim() !== "";
-        if (Array.isArray(value)) {
-            if (value.length === 0) return false;
-
-            // Cas des trois mots ["", "", ""]
-            if (value.every(v => typeof v === "string")) {
-                return value.some(v => v.trim() !== "");
+    const isAnswered = (val) => {
+        if (val === null || val === undefined) return false;
+        if (typeof val === "string") return val.trim() !== "";
+        if (Array.isArray(val)) {
+            if (val.length === 0) return false;
+            if (val.every(v => typeof v === "string")) {
+                return val.some(v => v.trim() !== "");
             }
-
-            // Cas Likert [{question, answer: ...}]
-            if (value.every(v => typeof v === "object" && "answer" in v)) {
-                return value.some(v => v.answer !== undefined);
+            if (val.every(v => typeof v === "object" && "answer" in v)) {
+                return val.some(v => v.answer !== undefined);
             }
-
             return true;
         }
         return true;
@@ -142,9 +170,12 @@ export default function PollContainer({ onStepChange }) {
     return (
         <main className="main-container">
             <div className="content-box">
+                {/* Modale de remerciement au-dessus de tout */}
+                <ThanksModal open={showThanks} />
+
                 {isFinished ? (
-                    // écran final sans numérotation
-                    <Thanks />
+                    // on ne montre plus la question, seule la modale est visible
+                    <div style={{ height: 0 }} aria-hidden="true" />
                 ) : (
                     <>
                         <h1 className="question-number">
@@ -161,32 +192,32 @@ export default function PollContainer({ onStepChange }) {
                         />
 
                         <div className="button-row">
-                                {step > 0 && (
-                                    <button className="btn" onClick={handlePrev}>
-                                        Précédent
-                                    </button>
-                                )}
-                                {step < questions.length - 1 ? (
-                                    <button
-                                        className="btn primary"
-                                        onClick={handleNext}
-                                        disabled={!isAnswered(value)}
-                                    >
-                                        Suivant
-                                    </button>
-                                ) : (
-                                    <button
-                                        className="btn primary"
-                                        onClick={handleSubmit}
-                                        disabled={!isAnswered(value)}
-                                    >
-                                        Valider
-                                    </button>
-                                )}
-                            </div>
+                            {step > 0 && (
+                                <button className="btn" onClick={handlePrev}>
+                                    Précédent
+                                </button>
+                            )}
+                            {step < questions.length - 1 ? (
+                                <button
+                                    className="btn primary"
+                                    onClick={handleNext}
+                                    disabled={!isAnswered(value)}
+                                >
+                                    Suivant
+                                </button>
+                            ) : (
+                                <button
+                                    className="btn primary"
+                                    onClick={handleSubmit}
+                                    disabled={!isAnswered(value)}
+                                >
+                                    Valider
+                                </button>
+                            )}
+                        </div>
 
                         <div className="right">
-                            {(step === 4 || step === 5 || step === 6 || step === 7) && (
+                            {(step >= 6 && step <= 9) && (
                                 <button className="link" onClick={handleNext}>
                                     Passer cette question
                                 </button>

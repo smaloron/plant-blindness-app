@@ -3,7 +3,7 @@ import React from "react";
 const Thanks = () => (
     <div>
 
-        <h1 className="question-number">Merci pour votre participation</h1>
+        <h1>Merci pour votre participation</h1>
 
     </div>
 

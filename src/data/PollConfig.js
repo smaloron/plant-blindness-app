@@ -52,11 +52,30 @@ const fakeSeedsList = [
 const PollConfig = () => [
 
     {
+        id: 12,
+        type: "likert-group",
+        question: "Avez-vous vu dans l'exposition quelque chose de frappant ?",
+        items: [
+            "Des formes de graines surprenantes",
+            "La beauté de certaines graines",
+            "Les différences individuelles de deux graines d'une même espèce"
+        ],
+        scaleLabels: [
+            "Non, pas du tout",
+            "Non, pas vraiment",
+            "Oui, un peu",
+            "Oui, tout à fait",
+        ],
+        name: "likert-group",
+    }
+    /*
+    {
         id: 1,
         type: "consent",
         question: "Nous autorisez-vous à garder ces données anonymes pour une recherche sur les relations aux plantes ?",
         name: "consent",
     },
+
     {
         id: 2,
         type: "demographics",
@@ -197,6 +216,8 @@ const PollConfig = () => [
         question: "Pouvez-vous nous dire pourquoi ?",
         name: "favoritePlantReason"
     },
+
+     */
 
 ];
 
