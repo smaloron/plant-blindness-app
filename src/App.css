@@ -234,11 +234,12 @@ header {
 .likert-group.horizontal {
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 0.7rem;
+  gap: 0.3rem;
 }
 
 .likert-group.horizontal .likert-label {
   flex: 0 0 auto;
+  font-size: .9rem;
 }
 .radio-list label,
 .likert-label {
