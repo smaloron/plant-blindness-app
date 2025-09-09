@@ -52,6 +52,19 @@ const fakeSeedsList = [
 const PollConfig = () => [
 
     {
+        id: 14,
+        type: "agree-disagree-list",
+        question: "Pensez-vous que l'exposition changera votre regard à l'avenir sur les graines et les plantes ?",
+        statements: [
+            "Je les regarde avec plus d’attention",
+            "J’apprécie mieux leur importance dans notre vie",
+            "J’apprécie davantage leur diversité et leur beauté",
+            "Les plantes ont d’autant importance à mes yeux que les animaux"
+        ],
+        showOther: true,
+        name: "paradigm-shift",
+    },
+    {
         id: 12,
         type: "likert-group",
         question: "Avez-vous vu dans l'exposition quelque chose de frappant ?",

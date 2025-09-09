@@ -241,6 +241,17 @@ header {
   flex: 0 0 auto;
   font-size: .9rem;
 }
+
+.agree-group {
+  display: flex;
+  gap: 1rem;
+}
+.agree-label {
+  display: inline-flex;
+  align-items: center;
+  font-size: .9rem;
+}
+
 .radio-list label,
 .likert-label {
   display: flex;
