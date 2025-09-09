@@ -51,6 +51,22 @@ const fakeSeedsList = [
 // Main configuration array
 const PollConfig = () => [
 
+    /*
+    {
+        id: 13,
+        type: "checkbox-list",
+        question: "Qu'est-ce que l'exposition vous a apporté ?",
+        options: [
+            "Rien",
+            "Mieux comprendre la valeur des graines",
+            "Découvrir des graines inconnues",
+            "Apprécier la beauté et la singularité des graines",
+            "Prendre le temps de mieux regarder les graines",
+            "Une émotion esthétique",
+            "Autre chose"
+        ],
+        name: "benefits-of-the-exhibition",
+    },
     {
         id: 14,
         type: "agree-disagree-list",
@@ -81,7 +97,9 @@ const PollConfig = () => [
         ],
         name: "likert-group",
     }
-    /*
+
+     */
+
     {
         id: 1,
         type: "consent",
@@ -229,9 +247,6 @@ const PollConfig = () => [
         question: "Pouvez-vous nous dire pourquoi ?",
         name: "favoritePlantReason"
     },
-
-     */
-
 ];
 
 
