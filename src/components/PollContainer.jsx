@@ -146,9 +146,9 @@ export default function PollContainer({ onStepChange }) {
         timeoutRef.current = setTimeout(() => {
             setShowThanks(false);
             // reset possible si on veut rester SPA :
-            // window.location.reload();  // hard reset
-            window.location.assign("/"); // retour à la home
-        }, 10000);
+            window.location.reload();  // hard reset
+            //window.location.assign("/"); // retour à la home
+        }, 3000);
     };
 
     const isAnswered = (val) => {

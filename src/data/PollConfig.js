@@ -224,12 +224,10 @@ const PollConfig = () => [
         type: "agree-disagree-list",
         question: "Pensez-vous que l'exposition changera votre regard à l'avenir sur les graines et les plantes ?",
         statements: [
-            "Oui, car j'y ferai plus attention",
-            "Oui, car je les regarderai mieux",
-            "Oui, car j'apprécierai mieux leur importance pour nous",
-            "Non, car je connaissais déjà tout ça",
-            "Non, car ça ne m'intéresse pas",
-            "Non, car je préfère regarder les animaux"
+            "Je les regarde avec plus d’attention",
+            "J’apprécie mieux leur importance dans notre vie",
+            "J’apprécie davantage leur diversité et leur beauté",
+            "Les plantes ont d’autant importance à mes yeux que les animaux"
         ],
         showOther: true,
         name: "paradigm-shift",
